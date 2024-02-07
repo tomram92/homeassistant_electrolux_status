@@ -145,9 +145,6 @@ class ElectroluxLibraryEntity:
             if type != "number" or capability_def.get("min", None) is None:
                 return SELECT
         match type:
-            case "string":
-                if access == "write" and len(values) == 2:
-                    return SWITCH
             case "boolean":
                 if access == "read":
                     return BINARY_SENSOR
