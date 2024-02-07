@@ -138,11 +138,10 @@ class ElectroluxLibraryEntity:
         # List of values ? if values is defined and has at least 1 entry
         values: dict[str, any] | None = capability_def.get("values", None)
         if values and access == "readwrite" and isinstance(values, dict) and len(values) > 0:
-            if len(values) == 2:
-                return SWITCH
             if type != "number" or capability_def.get("min", None) is None:
                 return SELECT
-
+        if len(values) == 2:
+            return SWITCH
         match type:
             case "boolean":
                 if access == "read":
