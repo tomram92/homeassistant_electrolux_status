@@ -140,9 +140,14 @@ class ElectroluxLibraryEntity:
         if values and len(values) == 2 and (type == "boolean" or type == "string"):
             return SWITCH
         if values and access == "readwrite" and isinstance(values, dict) and len(values) > 0:
+            if len(values) == 2:
+                return SWITCH
             if type != "number" or capability_def.get("min", None) is None:
                 return SELECT
         match type:
+            case "string":
+                if access == "write" and len(values) == 2:
+                    return SWITCH
             case "boolean":
                 if access == "read":
                     return BINARY_SENSOR
