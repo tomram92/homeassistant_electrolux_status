@@ -38,12 +38,11 @@ class ElectroluxSwitch(ElectroluxEntity, SwitchEntity):
         client: OneAppApi = self.api
         _LOGGER.debug("entity_attr: %s", self.entity_attr)
         _LOGGER.debug("capability: %s", self.capability)
-        result = await client.execute_appliance_command(self.pnc_id, {self.entity_attr: value})
+        # result = await client.execute_appliance_command(self.pnc_id, {self.entity_attr: value})
 
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
-        value = self.options_list.get(option, None)
         client: OneAppApi = self.api
         _LOGGER.debug("entity_attr: %s", self.entity_attr)
         _LOGGER.debug("capability: %s", self.capability)
-        result = await client.execute_appliance_command(self.pnc_id, {self.entity_attr: value})
+        # result = await client.execute_appliance_command(self.pnc_id, {self.entity_attr: value})
