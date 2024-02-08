@@ -36,13 +36,9 @@ class ElectroluxSwitch(ElectroluxEntity, SwitchEntity):
     async def async_turn_on(self, **kwargs):
         """Turn the entity on."""
         client: OneAppApi = self.api
-        _LOGGER.debug("Electrolux switch option %s", self.extract_value())
         result = await client.execute_appliance_command(self.pnc_id, {self.capability: self.extract_value()})
-        _LOGGER.debug("Electrolux select option result %s", result)
 
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
         client: OneAppApi = self.api
-        _LOGGER.debug("Electrolux switch option %s", self.extract_value())
         result = await client.execute_appliance_command(self.pnc_id, {self.capability: self.extract_value()})
-        _LOGGER.debug("Electrolux select option result %s", result)
