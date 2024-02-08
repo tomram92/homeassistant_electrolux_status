@@ -29,8 +29,6 @@ class ElectroluxSwitch(ElectroluxEntity, SwitchEntity):
         value = self.extract_value()
         if value is None:
             return self._cached_value
-        elif value == "On" or value == "Start":
-            self._cached_value = value
         else:
             self._cached_value = value
         return value
@@ -38,17 +36,15 @@ class ElectroluxSwitch(ElectroluxEntity, SwitchEntity):
     async def async_turn_on(self, **kwargs):
         """Turn the entity on."""
         client: OneAppApi = self.api
-        command: dict[str, any] = {}
         command = {self.entity_attr: self.extract_value()}
         _LOGGER.debug("Electrolux select option %s", json.dumps(command))
-        result = await client.execute_appliance_command(self.pnc_id, command)
+        result = await client.execute_appliance_command(self.pnc_id, {self.capability: self.extract_value()})
         _LOGGER.debug("Electrolux select option result %s", result)
 
     async def async_turn_off(self, **kwargs):
         """Turn the entity off."""
         client: OneAppApi = self.api
-        command: dict[str, any] = {}
         command = {self.entity_attr: self.extract_value()}
         _LOGGER.debug("Electrolux select option %s", json.dumps(command))
-        result = await client.execute_appliance_command(self.pnc_id, command)
+        result = await client.execute_appliance_command(self.pnc_id, {self.capability: self.extract_value()})
         _LOGGER.debug("Electrolux select option result %s", result)
